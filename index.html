@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rox Trading | Forex & Gold</title>
+    <title>Rox Bior Trading | Forex & Gold</title>
     <style>
-        /* Les styles CSS commencent ici */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212; /* Fond noir profond */
-            color: #e0e0e0; /* Texte gris clair pour le contraste */
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -19,53 +18,83 @@
         }
 
         .container {
-            background-color: #1e1e1e; /* Fond un peu plus clair pour la boîte */
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Ombre pour l'effet de relief */
-            max-width: 400px;
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            min-height: 400px;
+            /* --- PARTIE NOM DE L'IMAGE --- */
+            background-image: url('1000090839.jpg'); 
+            /* ---------------------------- */
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); 
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
-            color: #4caf50; /* Titre en vert vibrant (couleur "Achat" !) */
-            margin-top: 0;
+            color: #4caf50;
+            font-size: 26px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         p {
-            line-height: 1.6;
+            font-size: 16px;
+            color: #d1d1d1;
+            margin-bottom: 20px;
         }
 
         .highlight {
+            color: #ff9800;
             font-weight: bold;
-            color: #ff9800; /* Orange vif pour les mots-clés */
         }
 
-        /* Style du bouton */
         .btn {
             display: inline-block;
-            background-color: #2196f3; /* Bleu pour le bouton */
+            background: linear-gradient(135deg, #2196f3, #0056b3);
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 50px;
             font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s ease; /* Transition douce pour l'effet de survol */
-        }
-
-        /* Effet de survol du bouton */
-        .btn:hover {
-            background-color: #1976d2; /* Bleu plus foncé au survol */
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Bienvenue chez Rox Bior Trading</h1>
-        <p>Expertise et Passion pour le <span class="highlight">Forex</span> et le <span class="highlight">Gold (XAUUSD)</span>.</p>
-        <p>Mon robot Telegram est prêt à t'accompagner. Clique ci-dessous !</p>
+        <div class="overlay"></div>
         
-        <a href="https://t.me/Mon_telegramBior9_bot" class="btn">🚀 Rejoins mon Bot Telegram</a>
+        <div class="content">
+            <h1>Rox Bior Trading</h1>
+            <p>Expertise <span class="highlight">Forex</span> & <span class="highlight">Gold (XAUUSD)</span></p>
+            <p>Mon robot Telegram est prêt à t'accompagner.</p>
+            
+            <a href="https://bior9.github.io/Mon_site/" class="btn">🚀 Rejoindre le Bot</a>
+        </div>
     </div>
+
 </body>
 </html>
