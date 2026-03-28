@@ -3,98 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rox Bior Trading | Forex & Gold</title>
+    <title>BIOR - Tech, Trade & Sport</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0b0e11; /* Fond sombre type Binance */
+            --card-bg: #161b22; /* Fond de carte légèrement plus clair */
+            --text-main: #ecf0f1;
+            --text-muted: #acb6c0;
+            --accent: #3498db; /* Bleu Tech électrique */
+            --accent-hover: #2980b9;
+            --success: #2ecc71; /* Vert Profit */
+            --tiktok-color: #ff0050; /* Rouge TikTok */
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.3s ease;
         }
 
-        .container {
-            position: relative;
-            width: 90%;
-            max-width: 450px;
-            min-height: 400px;
-            /* --- PARTIE NOM DE L'IMAGE --- */
-            background-image: url('Screenshot_20260224_202757_TikTok'); 
-            /* ---------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- BACKGROUND IMAGE EFFECT --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Image de fond subtile (vignettage boursier/tech) */
+            background-image: 
+                linear-gradient(to bottom, rgba(11, 14, 17, 0.9) 0%, rgba(11, 14, 17, 0.98) 100%),
+                url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2070'); /* Image Tech/Grid */
             background-size: cover;
             background-position: center;
-            border-radius: 20px;
-            overflow: hidden;
+            z-index: -1; /* Derrière le contenu */
+        }
+
+        /* --- HEADER & MENU BURGER --- */
+        .header {
+            background-color: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px); /* Effet verre flouté */
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+        .logo span { color: var(--text-main); font-weight: 300; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Style spécifique pour le bouton Telegram dans le menu */
+        .btn-nav-tg {
+            background-color: #0088cc;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .btn-nav-tg:hover { background-color: #00aaff; color: white !important;}
+
+        /* Les trois barres (Burger Icon) */
+        .menu-toggle {
+            display: none; /* Caché par défaut (sur PC) */
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        /* --- RESPONSIVE MENU (MOBILE) --- */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; } /* Affiché sur mobile */
+
+            /* Animation des barres en 'X' quand actif */
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .nav-links {
+                position: fixed;
+                right: -100%; /* Caché à droite */
+                top: 70px; /* Sous la navbar */
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(22, 27, 34, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: 0.5s;
+                border-top: 1px solid #30363d;
+            }
+
+            .nav-links.active { right: 0; } /* Affiché */
+            .nav-links li { margin: 1.5rem 0; }
+        }
+
+        /* --- HERO SECTION (PRÉSENTATION) --- */
+        .hero {
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-align: center;
+            padding: 0 1rem;
+            margin-top: 80px;
         }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+
+        .btn-secondary { background-color: transparent; border: 1px solid #30363d; color: var(--text-main); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* --- MAIN CONTENT & CARDS --- */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+        }
+
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Style des Cartes/Options */
+        .option-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6); 
-            z-index: 1;
         }
 
-        .content {
-            position: relative;
-            z-index: 2;
+        .option-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        h1 {
-            color: #4caf50;
-            font-size: 26px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+        .icon-box {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
         }
 
-        p {
-            font-size: 16px;
-            color: #d1d1d1;
-            margin-bottom: 20px;
-        }
-
-        .highlight {
-            color: #ff9800;
-            font-weight: bold;
-        }
-
-        .btn {
+        .card-status {
+            font-size: 0.8rem;
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+            padding: 3px 8px;
+            border-radius: 20px;
             display: inline-block;
-            background: linear-gradient(135deg, #2196f3, #0056b3);
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 50px;
+            margin-bottom: 1rem;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
         }
+
+        .tiktok-status {
+            color: var(--tiktok-color);
+            background-color: rgba(255, 0, 80, 0.1);
+        }
+
+        .option-card h3 { margin-bottom: 0.5rem; font-size: 1.4rem; }
+        .option-card p { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 1.5rem; }
+
+        .card-link {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .card-link:hover { gap: 10px; } /* Petit effet */
+
+        /* --- FOOTER --- */
+        .footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-top: 1px solid #30363d;
+            background-color: #0e1117;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .footer span { color: var(--tiktok-color); } /* Pour "Sports" */
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero-btns { flex-direction: column; width: 100%; }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="overlay"></div>
-        
-        <div class="content">
-            <h1>Rox Bior Trading</h1>
-            <p>Expertise <span class="highlight">Forex</span> & <span class="highlight">Gold (XAUUSD)</span></p>
-            <p>Mon robot Telegram est prêt à t'accompagner.</p>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">BIOR<span>.dev</span></div>
             
-            <a href="https://bior9.github.io/Mon_site/" class="btn">🚀 Rejoindre le Bot</a>
-        </div>
-    </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
 
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#projets">Mes Options</a></li>
+                <li><a href="https://www.tiktok.com/@bior-sport" target="_blank">TikTok Sport</a></li>
+                <li><a href="#" class="btn-nav-tg"><i class="fab fa-telegram-plane"></i> Signaux</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="accueil">
+        <h1>Bior, dit Bior</h1>
+        <p>Passionné de technologies, développeur Python et trader algorithmique Forex. Bienvenue sur mon hub personnel.</p>
+        <div class="hero-btns">
+            <a href="#projets" class="btn-primary">Découvrir mes outils</a>
+            <a href="https://www.tiktok.com/@bior-sport" target="_blank" class="btn-secondary"><i class="fab fa-tiktok"></i> Bior-Sport</a>
+        </div>
+    </section>
+
+    <main class="main-content" id="projets">
+        <h2 class="section-title">Mes Piliers de Passion</h2>
+
+        <div class="grid-options">
+
+            <article class="option-card">
+                <div class="card-status tiktok-status">@Bior-Sport</div>
+                <div class="icon-box"><i class="fas fa-running"></i></div>
+                <h3>Passion Sports</h3>
+                <p>Retrouvez mes analyses, highlights et ma passion pour le sport au quotidien sur mon compte TikTok dédié.</p>
+                <a href="https://www.tiktok.com/@bior-sport" target="_blank" class="card-link">Regarder <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="option-card">
+                <div class="card-status">LIVE | MT5</div>
+                <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                <h3>Forex Bot EMA/RSI</h3>
+                <p>Mon algorithme Python analyse EUR/USD en direct via l'API MetaTrader 5, utilisant le combo Tendance (EMA) et Momentum (RSI).</p>
+                <a href="#" class="card-link">Canal Telegram <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+            <article class="option-card">
+                <div class="card-status">DEV</div>
+                <div class="icon-box"><i class="fab fa-python"></i></div>
+                <h3>Technologies</h3>
+                <p>Ma stack de prédilection : Python (pandas, ta, MetaTrader5), HTML/CSS pour les interfaces, et l'hébergement GitHub.</p>
+                <a href="#" class="card-link">GitHub <i class="fas fa-arrow-right"></i></a>
+            </article>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2023 BIOR. Tech | Trade | <span>Sports</span>.</p>
+        <p style="margin-top: 10px; font-size: 0.75rem;">Avertissement : Le trading Forex comporte des risques. Le bot est un outil d'aide, pas une garantie de profit.</p>
+    </footer>
+
+    <script>
+        // Sélection des éléments
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        // Ajout du listener de clic
+        menuToggle.addEventListener('click', function() {
+            // Ajoute/Enlève la classe 'active' pour les barres (animation 'X')
+            menuToggle.classList.toggle('active');
+            // Ajoute/Enlève la classe 'active' pour le menu (glissement)
+            navLinks.classList.toggle('active');
+        });
+
+        // Fermer le menu quand on clique sur un lien (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
